@@ -48,9 +48,12 @@ resource "google_container_cluster" "primary" {
     subnetwork = module.gcp-network.subnets_names[0]
 
     enable_autopilot = true
+    
+    # This is needed so that terraform does not throw error. Should it be empty?
+    ip_allocation_policy {}
 }
 
 output "cluster_name" {
   description = "Cluster name"
-  value       = module.gke.name
+  value       = google_container_cluster.primary.name
 }
