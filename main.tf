@@ -4,10 +4,10 @@ provider "google" {
 
 module "gke_auth" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/auth"
-  depends_on   = [module.gke]
+  depends_on   = [google_container_cluster.primary]
   project_id   = var.project_id
-  location     = module.gke.location
-  cluster_name = module.gke.name
+  location     = var.region
+  cluster_name = google_container_cluster.primary.name
 }
 
 resource "local_file" "kubeconfig" {
