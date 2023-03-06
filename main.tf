@@ -40,31 +40,16 @@ module "gcp-network" {
   }
 }
 
-module "gke" {
-  source            = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
-  project_id        = var.project_id
-  name              = "${var.cluster_name}-${var.env_name}"
-  regional          = false
-  region            = var.region
-  zones             = ["us-central1-c"]
-  network           = module.gcp-network.network_name
-  subnetwork        = module.gcp-network.subnets_names[0]
-  ip_range_pods     = var.ip_range_pods_name
-  ip_range_services = var.ip_range_services_name
-  node_pools = [
-    {
-      name           = "node-pool"
-      machine_type   = "n2-standard-2"
-      node_locations = "us-central1-c"
-      min_count      = var.minnode
-      max_count      = var.maxnode
-      disk_size_gb   = var.disksize
-      preemptible    = false
-      auto_repair    = false
-      auto_upgrade   = true
-    },
-  ]
+resource "google_container_cluster" "primary" {
+    name = "${var.project_id}-gke"
+    location = var.region
+
+    network = module.gcp-network.network_name
+    subnetwork = module.gcp-network.subnets_names[0]
+
+    enable_autopilot = true
 }
+
 output "cluster_name" {
   description = "Cluster name"
   value       = module.gke.name
