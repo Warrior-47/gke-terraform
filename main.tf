@@ -50,6 +50,7 @@ resource "google_container_cluster" "primary" {
     enable_autopilot = true
     
     # This is needed so that terraform does not throw error. Should it be empty?
+    # Error: googleapi: Error 400: Max pods constraint on node pools for Autopilot clusters should be 32., badRequest
     ip_allocation_policy {}
 }
 
