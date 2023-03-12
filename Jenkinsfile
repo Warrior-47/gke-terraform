@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('get creds') {
       steps {
-        sh 'echo $cred > cred.json'
+        sh '''touch cred.json
+echo "${cred}" > cred.json'''
       }
     }
 
