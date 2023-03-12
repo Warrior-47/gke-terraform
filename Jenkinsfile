@@ -4,7 +4,7 @@ pipeline {
     stage('terraform initialize') {
       steps {
         sh '''terraform init
-terraform vaidate'''
+terraform validate'''
       }
     }
 
