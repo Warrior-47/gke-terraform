@@ -10,4 +10,4 @@ COPY . .
 
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
-EXPOSE 80
+EXPOSE 8081
