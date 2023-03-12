@@ -1,17 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('terraform check') {
+    stage('docker build') {
       steps {
-        sh '''
-terraform init
-terraform validate'''
-      }
-    }
-
-    stage('terraform plan') {
-      steps {
-        sh 'terraform plan -out a.plan'
+        sh 'docker build - < Dockerfile'
       }
     }
 
