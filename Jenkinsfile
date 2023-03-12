@@ -2,9 +2,20 @@ pipeline {
   agent any
   stages {
     stage('terraform initialize') {
-      steps {
-        sh '''terraform init
+      parallel {
+        stage('terraform initialize') {
+          steps {
+            sh '''terraform init
 terraform validate'''
+          }
+        }
+
+        stage('get credentials') {
+          steps {
+            input 'Give creds'
+          }
+        }
+
       }
     }
 
