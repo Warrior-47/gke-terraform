@@ -22,6 +22,6 @@ pipeline {
 
   }
   environment {
-    REPO = 'asia-southeast1-docker.pkg.dev/sms-gateway-379408/test-repo/'
+    REPO = 'asia-southeast1-docker.pkg.dev/sms-gateway-379408/test-repo'
   }
 }
